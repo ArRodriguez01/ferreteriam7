@@ -17,7 +17,8 @@ class LoginController extends Controller
             'email' => $request->email,
             'password' => $request->password,
         ]);
-        $request->session()->put('user_id', $response['user_id']);
+        $data=json_encode($response);
+        $request->session()->put('user_id', $data['user_id']);
         return redirect()->route('dashboard');
     }
 }
