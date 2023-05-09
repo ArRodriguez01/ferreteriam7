@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class CartController extends Controller
 {
     public function store(Request $request){
-        $cart= new cart;
+        $cart= new Cart;
         $cart->user_id=$request->user_id;
         $cart->order=$request->marca;
         $cart->total=$request->total;
