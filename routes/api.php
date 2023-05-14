@@ -29,7 +29,12 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
-Route::resource('carts',CartController::class);
-
-Route::resource('stocks',StockController::class);//->middleware(['auth:sanctum']);
+Route::controller(CartController::class)->group(function(){
+    Route::get('/carts','index');
+    Route::post('/carts','store');
+    Route::get('/carts/{id}','filter');
+    Route::get('/carts/{cart}','show');
+    Route::delete('/carts/{id}','delete');
+});
+Route::resource('stocks',StockController::class)->middleware(['auth:sanctum']);
 

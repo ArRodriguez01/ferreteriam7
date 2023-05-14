@@ -1,12 +1,16 @@
 <?php
 
 
+use App\Http\Controllers\CartManag;
+use App\Http\Controllers\StockManag;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\CartManagController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\StockManagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +44,17 @@ Route::controller(CartController::class)->group(function () {
     Route::get('/cartdelete/{menu}','delete')->name('cart.delete');
     Route::get('/cartremove/{menu}','remove')->name('cart.remove');
     Route::post('/cartstore','store')->name('cart.store');
+    Route::get('/cartshow','show')->name('cart.show');
+});
+Route::controller(StockManagController::class)->group(function(){
+    Route::get('/stockmanag','index')->name('stockmanag.index');
+    Route::delete('/stockmanag/{id}','delete')->name('stockmanag.delete');
+    Route::post('/stockmanag','store')->name('stockmanag.store');
+});
+
+Route::controller(CartManagController::class)->group(function(){
+    Route::get('/cartmanag','index')->name('cartmanag.index');
+    Route::delete('/cartmanag/{id}','delete')->name('cartmanag.delete');
 });
 
 require __DIR__.'/auth.php';

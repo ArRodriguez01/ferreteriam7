@@ -14,14 +14,8 @@
           <ul>
             <li><a aria-label="Carta" href="{{route('stock.index')}}">Stocks</a></li>
             <li><a href="{{route('cart.index')}}">Carrito</a></li>
-            <div class="dropdown">
-                @if(Auth::user())
-                    <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <li><input aria-label="Cerrar sesión" type="submit" value="Cerrar sesión"></li>
-                    </form>
-                @endif
-            </div>
+            <li><a href="{{route('cart.show')}}">MisPedidos</a></li>
+            <li><a href="{{route('dashboard')}}">Dashboard</a></li>
           </ul>
         </div>
       </nav>

@@ -16,26 +16,21 @@ class StockController extends Controller
     public function index()
     {
         $stock=Stock::all();
-        if($stock)
-        return response()->json([
-            'success'=>true,
-            'data'=>$stock
-        ]);
-        return response()->json([
-            'success'=>false,
-            'data'=>'No hay nada a la venta'
-        ]);
+        if(count($stock)!=0){
+            return response()->json([
+                'success'=>true,
+                'data'=>$stock
+            ]);
+        }else{
+            return response()->json([
+                'success'=>false,
+                'data'=>'No hay nada a la venta'
+            ]);
+        }
+
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -73,16 +68,6 @@ class StockController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Stock  $stock
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Stock $stock)
-    {
-
-    }
 
     /**
      * Update the specified resource in storage.

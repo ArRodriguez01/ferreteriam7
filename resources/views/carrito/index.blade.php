@@ -28,7 +28,7 @@
     @endforeach
     <p>{{$total}} €</p>
     @if(count($cartItems)!=0)
-    <input type="text" placeholder="Añade tu dirección"><br>
+    <input name="address" type="text" placeholder="Añade tu dirección"><br>
     <input type="submit" value="PEDIR">
     @endif
 

@@ -9,10 +9,15 @@ use Illuminate\Support\Facades\Http;
 
 class CartController extends Controller
 {
+    /**
+     * Display the view and create an empty session array key or display the current key
+     *
+     * @param Request $request
+     * @return void
+     */
     public function index(Request $request)
     {
         $cart = $request->session()->get('cart', []);
-
         $cartItems = [];
 
         foreach ($cart as $productid => $quantity) {
@@ -35,6 +40,13 @@ class CartController extends Controller
         $request->session()->put('cartItems', $cartItems);
         return view('carrito.index', compact('cartItems', 'total'));
     }
+    /**
+     * Add an object to the array or add 1 to the existent object
+     *
+     * @param Request $request
+     * @param [type] $id
+     * @return void
+     */
     public function add(Request $request,$id)
     {
         $stock=Stock::findOrFail($id);
@@ -49,7 +61,13 @@ class CartController extends Controller
 
         return redirect()->back();
     }
-
+/**
+ * Remove 1 of the quantity on the array
+ *
+ * @param Request $request
+ * @param string $id
+ * @return void
+ */
     public function remove(Request $request,string $id)
     {
         $stock=Stock::findOrFail($id);
@@ -62,6 +80,13 @@ class CartController extends Controller
         $request->session()->put('cart', $cart);
         return redirect()->back();
     }
+    /**
+     * Delete the object in the array
+     *
+     * @param Request $request
+     * @param string $id
+     * @return void
+     */
     public function delete(Request $request,string $id)
     {
         $cart = collect($request->session()->get('cart', []));
@@ -69,6 +94,12 @@ class CartController extends Controller
         $request->session()->put('cart', $cart->all());
         return redirect()->route('cart.index');
     }
+    /**
+     * Save the cart to the db
+     *
+     * @param Request $request
+     * @return void
+     */
     public function store(Request $request)
     {
         $cart = $request->session()->get('cartItems', []);
@@ -76,16 +107,36 @@ class CartController extends Controller
         $orden="";
         $total=0;
         foreach($cart as $item){
-            $orden.="Menu: ".$item['name'].", Precio ud: ".$item['price'].", Cantidad: ".$item['quantity'].";";
+            $orden.="Item: ".$item['name'].", Precio ud: ".$item['price'].", Cantidad: ".$item['quantity'].";";
             $total += $item['price'] * $item['quantity'];
         }
         $response = Http::post('https://objective-bohr.87-106-229-150.plesk.page/api/carts', [
             'user_id'=>$id,
             'order'=>$orden,
             'total'=>$total,
-            'address' => $request->address,
+            'address' => $request->address
         ]);
+        if($response->status()==200){
+            $response->json();
+            return redirect()->route('dashboard');
+        }else{
+            return redirect()->back();
+        }
 
+    }
+    /**
+     * Filter the cart by user_id
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function show(Request $request){
+        $id=$request->session()->get('user_id', []);
+        $response = Http::get('https://objective-bohr.87-106-229-150.plesk.page/api/carts/'.$id);
+        $pedidos=$response->json();
+        return view('carrito.show',[
+            'pedidos'=>$pedidos
+        ]);
     }
 
 }
