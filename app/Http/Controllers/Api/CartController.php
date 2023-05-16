@@ -103,6 +103,32 @@ class CartController extends Controller
         }
 
     }
+    /**
+     * Updates the model in the db
+     *
+     * @param Request $request
+     * @param [type] $id
+     * @return void
+     */
+    public function update(Request $request,$id)
+    {
+        $cart=Cart::find($id);
+        if($cart!=null){
+            $cart->address=$request->address;
+            $cart->total=$request->total;
+            $cart->save();
+            return response()->json([
+                'success'=>true,
+                'data'=>'Pedido actualizado'
+            ]);
+        }else{
+            return response()->json([
+                'success'=>false,
+                'data'=>'Pedido no actualizado'
+            ]);
+        }
+
+    }
 
 
 

@@ -12,14 +12,14 @@
 <form action={{route('stockmanag.store')}} method="POST">
     @csrf
     <label>Nombre</label>
-    <input type="text" name="nombre">
+    <input required type="text" name="nombre">
     <label>Marca</label>
-    <input type="text" name="marca">
+    <input required type="text" name="marca">
     <label>Seccion</label>
-    <input type="text" name="seccion">
+    <input required type="text" name="seccion">
     <label>Precio</label>
-    <input type="number" step=".01" name="precio">
-    <input type="submit" value="Insertar">
+    <input required type="number" step=".01" name="precio">
+    <input  type="submit" value="Insertar">
 </form>
 @if (gettype($stocks['data'])=="array")
     @foreach ($stocks['data'] as $stock )
@@ -33,6 +33,7 @@
             <p>Precio:{{$stock['precio']}}€</p>
             <input type="submit" value="Borrar">
         </form>
+        <a href={{route('stockmanag.edit',$stock['id'])}}>Actualiza</a>
     </div>
     @endforeach
 @else

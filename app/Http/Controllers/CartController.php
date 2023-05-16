@@ -103,7 +103,7 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $cart = $request->session()->get('cartItems', []);
-        $id = $request->session()->get('user_id', []);
+        $id = Auth::user()->id;
         $orden="";
         $total=0;
         foreach($cart as $item){
@@ -116,12 +116,14 @@ class CartController extends Controller
             'total'=>$total,
             'address' => $request->address
         ]);
+        $request->session()->forget('cart');
         if($response->status()==200){
             $response->json();
-            return redirect()->route('dashboard');
+            return redirect()->route('cart.show');
         }else{
             return redirect()->back();
         }
+
 
     }
     /**
@@ -131,7 +133,7 @@ class CartController extends Controller
      * @return void
      */
     public function show(Request $request){
-        $id=$request->session()->get('user_id', []);
+        $id=Auth::user()->id;
         $response = Http::get('https://objective-bohr.87-106-229-150.plesk.page/api/carts/'.$id);
         $pedidos=$response->json();
         return view('carrito.show',[

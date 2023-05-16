@@ -35,6 +35,7 @@ Route::controller(CartController::class)->group(function(){
     Route::get('/carts/{id}','filter');
     Route::get('/carts/{cart}','show');
     Route::delete('/carts/{id}','delete');
+    Route::put('/carts/{id}','update');
 });
 Route::resource('stocks',StockController::class)->middleware(['auth:sanctum']);
 

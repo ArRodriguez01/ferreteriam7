@@ -1,0 +1,43 @@
+nav {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+  }
+
+  .menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .menu ul li {
+    display: inline-block;
+  }
+
+  .menu ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+  }
+
+  .menu ul li a:hover {
+    background-color: #555;
+  }
+
+  .menu ul li form {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+  }
+
+  .menu ul li form input[type="submit"] {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .menu ul li form input[type="submit"]:hover {
+    background-color: #555;
+  }

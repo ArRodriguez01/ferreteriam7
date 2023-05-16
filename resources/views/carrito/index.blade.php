@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{{ asset('css/carrito.css') }}"/>
+    <link rel="stylesheet"  href="/css/carrito.css" type="text/css">
+
     <title>Tu carrito</title>
   </head>
   @include('includes.nav')
@@ -26,9 +27,9 @@
     <a href={{route('cart.remove',$item['stock_id'])}}>-</a>
     </div>
     @endforeach
-    <p>{{$total}} €</p>
+    <h1>TOTAL:{{$total}} €</h1>
     @if(count($cartItems)!=0)
-    <input name="address" type="text" placeholder="Añade tu dirección"><br>
+    <input required name="address" type="text" placeholder="Añade tu dirección"><br>
     <input type="submit" value="PEDIR">
     @endif
 

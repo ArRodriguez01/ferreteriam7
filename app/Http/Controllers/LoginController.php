@@ -16,7 +16,7 @@ class LoginController extends Controller
         return view('auth.login');
     }
     /**
-     * LOg the user via the API
+     * Log the user via the API
      *
      * @param Request $request
      * @return void
